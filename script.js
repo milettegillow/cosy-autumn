@@ -37,6 +37,7 @@ const CHIPS = [
   { id: "radiator", label: "Radiator stone cold", points: -20 },
   { id: "tax", label: "Tax return due", points: -25 },
   { id: "landlord", label: "Landlord inspection tomorrow", points: -15 },
+  { id: "laptop", label: "Laptop open at the table", points: -15 },
 ];
 
 const COMBOS = [
@@ -64,6 +65,7 @@ const COMBOS = [
   { when: (on) => on.friends && on.boardGame, text: "Someone's going to flip the board", points: -5 },
   { when: (on) => on.friends && on.pyjamas, text: "Pyjamas in front of guests. Respect", points: 5 },
   { when: (on) => on.redWine && on.emails, text: "Do not reply to that email", points: -10 },
+  { when: (on) => on.friends && on.laptop, text: "Your friends are being very polite about this", points: -10 },
 ];
 
 const TIERS = [
