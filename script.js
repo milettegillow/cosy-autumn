@@ -98,7 +98,17 @@ for (let i = 0; i < BULBS; i++) {
   fairyEl.appendChild(bulb);
 }
 
-CHIPS.forEach((chip) => {
+// Fisher-Yates shuffle, so the chips come out in a new order each visit
+function shuffled(list) {
+  const out = [...list];
+  for (let i = out.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [out[i], out[j]] = [out[j], out[i]];
+  }
+  return out;
+}
+
+shuffled(CHIPS).forEach((chip) => {
   const btn = document.createElement("button");
   btn.type = "button";
   btn.className = `chip ${chip.points > 0 ? "cosy" : "not-cosy"}`;
@@ -131,10 +141,12 @@ function countTo(target) {
   countFrame = requestAnimationFrame(step);
 }
 
+// At scale 1 the flame is ~33% of the fireplace height; the opening is ~51.5%.
+// 1.4 at 99 fills ~90% of the opening; 2.1 at 100 spills up over the mantel.
 function flameScale(score) {
   if (score <= 0) return 0;
-  if (score >= 100) return 1.75;
-  return 0.25 + ((score - 1) / 98) * 0.75;
+  if (score >= 100) return 2.1;
+  return 0.25 + ((score - 1) / 98) * 1.15;
 }
 
 function update() {

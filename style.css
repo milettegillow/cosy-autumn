@@ -41,7 +41,7 @@ h1 {
 /* Mobile: the fire sticks to the top while the chips scroll beneath it */
 .stage {
   /* fireplace.png is 1339 x 997; hearth height plus mantel room fits in 38vh */
-  --hearth-width: min(100%, calc((38vh - 0.5rem) / 1.18 * 1339 / 997));
+  --hearth-width: min(100%, calc((38vh - 0.5rem) / 1.1 * 1339 / 997));
 
   display: flow-root;
   position: sticky;
@@ -62,8 +62,8 @@ h1 {
   position: relative;
   width: var(--hearth-width);
   container-type: inline-size;
-  /* room above the beam for the tallest mantel item: 18% of the fireplace height */
-  margin: calc(var(--hearth-width) * 0.18 * 997 / 1339) auto 0;
+  /* room above the beam for the tallest mantel item: 10% of the fireplace height */
+  margin: calc(var(--hearth-width) * 0.1 * 997 / 1339) auto 0;
 }
 
 .fireplace {
@@ -74,9 +74,21 @@ h1 {
   height: auto;
 }
 
+/* A copy of the beam alone, layered over the socks so they hang from behind it.
+   The beam's lower edge is ~13.9% down the image. */
+.beam-front {
+  position: absolute;
+  z-index: 3;
+  inset: 0;
+  width: 100%;
+  height: auto;
+  clip-path: inset(0 0 86.1% 0);
+  pointer-events: none;
+}
+
 .flame-wrap {
   position: absolute;
-  z-index: 2;
+  z-index: 4;
   left: var(--flame-x);
   bottom: var(--flame-bottom);
   width: var(--flame-width);
@@ -109,7 +121,7 @@ h1 {
 
 .score {
   position: absolute;
-  z-index: 4;
+  z-index: 6;
   left: 50%;
   top: 7.5%;
   transform: translate(-50%, -50%);
@@ -123,19 +135,17 @@ h1 {
   font-variant-numeric: tabular-nums;
 }
 
-/* Mantel items: positions and widths are fractions of the fireplace width.
-   The centred score spans roughly 40%-60%, so items stay clear of it. */
+/* Items: positions and widths are fractions of the fireplace width
+   (fireplace ~1.5m wide). The centred score spans roughly 40%-60%. */
 .mantel {
   position: absolute;
   inset: 0;
-  z-index: 3;
   pointer-events: none;
 }
 
 .slot {
   position: absolute;
-  /* bottoms rest on the beam's top edge */
-  bottom: 98.5%;
+  z-index: 5;
   left: var(--x);
   width: var(--w);
   opacity: 0;
@@ -143,19 +153,35 @@ h1 {
   transition: opacity 0.45s ease, transform 0.45s cubic-bezier(0.3, 1.4, 0.5, 1);
 }
 
-.slot[data-item="candle"]  { --x: 4%;  --w: 9%; }
-.slot[data-item="mug"]     { --x: 15%; --w: 9%; }
-.slot[data-item="soup"]    { --x: 26%; --w: 11%; }
-.slot[data-item="cat"]     { --x: 63%; --w: 16%; }
-.slot[data-item="blanket"] { --x: 82%; --w: 13%; }
-
-/* Socks hang from the front of the beam like a stocking */
-.slot[data-item="socks"] {
-  --x: 68%;
-  --w: 8%;
-  bottom: auto;
-  top: 3%;
+/* On the mantel: bottoms rest on the beam's top edge */
+.slot[data-item="candle"],
+.slot[data-item="mug"],
+.slot[data-item="soup"] {
+  bottom: 98.5%;
 }
+
+.slot[data-item="candle"] { --x: 3%;    --w: 4%; }
+.slot[data-item="mug"]    { --x: 22.5%; --w: 5%; }
+.slot[data-item="soup"]   { --x: 71.5%; --w: 7%; }
+
+/* Hung from the beam's lower edge beside the right-hand bracket,
+   top tucked behind the beam (.beam-front sits above) */
+.slot[data-item="socks"] {
+  --x: 73%;
+  --w: 6%;
+  z-index: 2;
+  top: 11.8%;
+}
+
+/* On the hearth, in front of the opening's edges */
+.slot[data-item="cat"],
+.slot[data-item="blanket"] {
+  z-index: 7;
+  bottom: 11.5%;
+}
+
+.slot[data-item="cat"]     { --x: 12%; --w: 24%; }
+.slot[data-item="blanket"] { --x: 65%; --w: 22%; }
 
 .slot.is-on {
   opacity: 1;
@@ -292,35 +318,35 @@ body.big-light-on .big-light {
   inset: -50%;
   background: repeating-linear-gradient(
     90deg,
-    rgba(70, 95, 120, 0.4) 0 1px,
-    transparent 1px 37px
+    rgba(160, 178, 196, 0.6) 0 1px,
+    transparent 1px 29px
   );
-  -webkit-mask-image: repeating-linear-gradient(180deg, #000 0 26px, transparent 26px 110px);
-  mask-image: repeating-linear-gradient(180deg, #000 0 26px, transparent 26px 110px);
+  -webkit-mask-image: repeating-linear-gradient(180deg, #000 0 12px, transparent 12px 90px);
+  mask-image: repeating-linear-gradient(180deg, #000 0 12px, transparent 12px 90px);
   transform: rotate(15deg);
-  animation: rain 0.6s linear infinite;
+  animation: rain 0.32s linear infinite;
 }
 
 .rain::after {
-  background-position: 19px 0;
-  -webkit-mask-image: repeating-linear-gradient(180deg, transparent 0 60px, #000 60px 80px, transparent 80px 150px);
-  mask-image: repeating-linear-gradient(180deg, transparent 0 60px, #000 60px 80px, transparent 80px 150px);
+  background-position: 15px 0;
+  -webkit-mask-image: repeating-linear-gradient(180deg, transparent 0 60px, #000 60px 70px, transparent 70px 130px);
+  mask-image: repeating-linear-gradient(180deg, transparent 0 60px, #000 60px 70px, transparent 70px 130px);
   animation-name: rain-slow;
-  animation-duration: 0.9s;
+  animation-duration: 0.45s;
 }
 
 body.rain-on .rain {
-  opacity: 0.5;
+  opacity: 0.4;
 }
 
 @keyframes rain {
   from { transform: rotate(15deg) translateY(0); }
-  to   { transform: rotate(15deg) translateY(110px); }
+  to   { transform: rotate(15deg) translateY(90px); }
 }
 
 @keyframes rain-slow {
   from { transform: rotate(15deg) translateY(0); }
-  to   { transform: rotate(15deg) translateY(150px); }
+  to   { transform: rotate(15deg) translateY(130px); }
 }
 
 .fairy-lights {
@@ -405,7 +431,7 @@ body.big-light-on .big-light {
 
   .stage {
     /* fireplace up to 72vh tall, plus mantel room, below the heading */
-    --hearth-width: min(100%, calc(min(72vh, (100vh - 7rem) / 1.18) * 1339 / 997));
+    --hearth-width: min(100%, calc(min(72vh, (100vh - 7rem) / 1.1) * 1339 / 997));
 
     position: static;
     flex: 1 1 0;
