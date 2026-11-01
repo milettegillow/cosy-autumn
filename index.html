@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>How cosy are you?</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="ambient rain" aria-hidden="true"></div>
+  <div class="ambient fairy-lights" aria-hidden="true">
+    <svg class="fairy-string" viewBox="0 0 100 10" preserveAspectRatio="none">
+      <path d="M0 0 Q50 20 100 0" />
+    </svg>
+  </div>
+
+  <main>
+    <h1>How cosy are you?</h1>
+
+    <div class="hearth">
+      <img class="fireplace" src="assets/fireplace.png" alt="A watercolour stone fireplace with logs in the grate">
+
+      <div class="flame-wrap" aria-hidden="true">
+        <img class="flame" src="assets/flame.png" alt="">
+      </div>
+
+      <div class="mantel" aria-hidden="true">
+        <div class="slot" data-item="candle"><img src="assets/candle.png" alt=""></div>
+        <div class="slot" data-item="mug"><img src="assets/mug.png" alt=""></div>
+        <div class="slot" data-item="soup"><img src="assets/soup.png" alt=""></div>
+        <div class="slot" data-item="cat"><img src="assets/cat.png" alt=""></div>
+        <div class="slot" data-item="socks"><img src="assets/socks.png" alt=""></div>
+        <div class="slot" data-item="blanket"><img src="assets/blanket.png" alt=""></div>
+      </div>
+
+      <p class="score" id="score" aria-live="polite">0</p>
+    </div>
+
+    <p class="tier" id="tier">Hostile</p>
+
+    <div class="chips" id="chips"></div>
+
+    <ul class="combos" id="combos"></ul>
+  </main>
+
+  <div class="ambient big-light" aria-hidden="true"></div>
+
+  <script src="script.js"></script>
+</body>
+</html>

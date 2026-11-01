@@ -1,0 +1,345 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  overflow-x: clip;
+}
+
+body {
+  position: relative;
+  margin: 0;
+  min-height: 100vh;
+  background: #f6ecd9;
+  color: #3b2416;
+  font-family: Georgia, "Times New Roman", serif;
+  line-height: 1.5;
+}
+
+main {
+  position: relative;
+  z-index: 1;
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 4rem 1rem 3rem;
+  text-align: center;
+}
+
+h1 {
+  font-family: "Playfair Display", Georgia, serif;
+  font-weight: 700;
+  font-size: clamp(2rem, 8vw, 3rem);
+  line-height: 1.15;
+  margin: 0;
+}
+
+/* ---------- Fireplace ---------- */
+
+.hearth {
+  /* Flame placement over the grate, as fractions of the cropped image */
+  --flame-x: 50%;
+  --flame-bottom: 21%;
+  --flame-width: 26%;
+  --flame-scale: 0;
+  --flicker: 0;
+
+  position: relative;
+  width: 100%;
+  container-type: inline-size;
+  /* room above the beam for mantel items */
+  margin-top: clamp(4.5rem, 18vw, 7.5rem);
+}
+
+.fireplace {
+  position: relative;
+  z-index: 1;
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.flame-wrap {
+  position: absolute;
+  z-index: 2;
+  left: var(--flame-x);
+  bottom: var(--flame-bottom);
+  width: var(--flame-width);
+  transform: translateX(-50%) scale(var(--flame-scale));
+  transform-origin: 50% 100%;
+  opacity: 0;
+  pointer-events: none;
+  transition: transform 0.6s ease, opacity 0.6s ease;
+}
+
+.hearth.lit .flame-wrap {
+  opacity: 1;
+}
+
+.flame {
+  display: block;
+  width: 100%;
+  height: auto;
+  transform-origin: 50% 100%;
+  animation: flicker 1.8s ease-in-out infinite;
+}
+
+/* --flicker runs 0 (calm) to 1 (wild) with the score */
+@keyframes flicker {
+  0%, 100% { transform: scale(1, 1) skewX(0deg); }
+  20%      { transform: scale(calc(1 + 0.04 * var(--flicker)), calc(1 - 0.06 * var(--flicker))) skewX(calc(-3deg * var(--flicker))); }
+  45%      { transform: scale(calc(1 - 0.03 * var(--flicker)), calc(1 + 0.08 * var(--flicker))) skewX(calc(2deg * var(--flicker))); }
+  70%      { transform: scale(calc(1 + 0.02 * var(--flicker)), calc(1 - 0.03 * var(--flicker))) skewX(calc(-1.5deg * var(--flicker))); }
+}
+
+.score {
+  position: absolute;
+  z-index: 4;
+  left: 50%;
+  top: 7.5%;
+  transform: translate(-50%, -50%);
+  margin: 0;
+  font-family: "Playfair Display", Georgia, serif;
+  font-weight: 700;
+  font-size: 11cqw;
+  line-height: 1;
+  color: #f6ecd9;
+  text-shadow: 0 2px 6px rgba(40, 20, 8, 0.55);
+  font-variant-numeric: tabular-nums;
+}
+
+/* Mantel items rest on the top edge of the beam */
+.mantel {
+  position: absolute;
+  z-index: 3;
+  left: 3%;
+  right: 3%;
+  bottom: 99.5%;
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-end;
+  pointer-events: none;
+}
+
+.slot {
+  flex: 0 1 15%;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  opacity: 0;
+  transform: translateY(-14px);
+  transition: opacity 0.45s ease, transform 0.45s cubic-bezier(0.3, 1.4, 0.5, 1);
+}
+
+.slot.is-on {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.slot[hidden] {
+  display: none;
+}
+
+.slot img {
+  display: block;
+  max-width: 100%;
+  max-height: clamp(3.5rem, 16vw, 6.5rem);
+  height: auto;
+}
+
+/* Legally a bear */
+main.shake {
+  animation: shake 0.5s ease-in-out infinite;
+}
+
+@keyframes shake {
+  0%, 100% { transform: translate(0, 0); }
+  25%      { transform: translate(-1.5px, 1px); }
+  50%      { transform: translate(1px, -1px); }
+  75%      { transform: translate(1.5px, 0.5px); }
+}
+
+/* ---------- Tier, chips, combos ---------- */
+
+.tier {
+  font-family: "Playfair Display", Georgia, serif;
+  font-weight: 700;
+  font-size: clamp(1.9rem, 8vw, 2.75rem);
+  line-height: 1.15;
+  margin: 1.25rem 0 1.25rem;
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.chip {
+  font: inherit;
+  font-size: 0.95rem;
+  color: #3b2416;
+  background: transparent;
+  border: 1.5px solid #d4b98f;
+  border-radius: 999px;
+  padding: 0.45rem 0.95rem;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+
+.chip:focus-visible {
+  outline: 2px solid #b5532a;
+  outline-offset: 2px;
+}
+
+.chip.cosy[aria-pressed="true"] {
+  background: #f3c27a;
+  border-color: #f3c27a;
+  color: #5a2e0b;
+}
+
+.chip.not-cosy[aria-pressed="true"] {
+  background: #c9d3dc;
+  border-color: #c9d3dc;
+  color: #2c3a46;
+}
+
+.combos {
+  list-style: none;
+  margin: 1.25rem 0 0;
+  padding: 0;
+}
+
+.combos li {
+  margin: 0.25rem 0;
+}
+
+/* ---------- Ambient ---------- */
+
+.ambient {
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.8s ease;
+}
+
+body.rain-on .rain,
+body.fairy-on .fairy-lights,
+body.big-light-on .big-light {
+  opacity: 1;
+}
+
+.rain {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+}
+
+.rain::before,
+.rain::after {
+  content: "";
+  position: absolute;
+  inset: -50%;
+  background: repeating-linear-gradient(
+    90deg,
+    rgba(70, 95, 120, 0.4) 0 1px,
+    transparent 1px 37px
+  );
+  -webkit-mask-image: repeating-linear-gradient(180deg, #000 0 26px, transparent 26px 110px);
+  mask-image: repeating-linear-gradient(180deg, #000 0 26px, transparent 26px 110px);
+  transform: rotate(15deg);
+  animation: rain 0.6s linear infinite;
+}
+
+.rain::after {
+  background-position: 19px 0;
+  -webkit-mask-image: repeating-linear-gradient(180deg, transparent 0 60px, #000 60px 80px, transparent 80px 150px);
+  mask-image: repeating-linear-gradient(180deg, transparent 0 60px, #000 60px 80px, transparent 80px 150px);
+  animation-name: rain-slow;
+  animation-duration: 0.9s;
+}
+
+body.rain-on .rain {
+  opacity: 0.5;
+}
+
+@keyframes rain {
+  from { transform: rotate(15deg) translateY(0); }
+  to   { transform: rotate(15deg) translateY(110px); }
+}
+
+@keyframes rain-slow {
+  from { transform: rotate(15deg) translateY(0); }
+  to   { transform: rotate(15deg) translateY(150px); }
+}
+
+.fairy-lights {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 40px;
+  z-index: 2;
+}
+
+.fairy-string {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.fairy-string path {
+  fill: none;
+  stroke: #5b4636;
+  stroke-width: 1.2;
+  vector-effect: non-scaling-stroke;
+}
+
+.bulb {
+  position: absolute;
+  width: 9px;
+  height: 9px;
+  margin: -1px 0 0 -4.5px;
+  border-radius: 50%;
+  background: #ffd27a;
+  box-shadow: 0 0 6px 2px rgba(255, 196, 92, 0.75);
+  animation: twinkle 2.2s ease-in-out infinite;
+}
+
+.bulb:nth-child(3n) { background: #ffb36b; }
+.bulb:nth-child(4n) { background: #fff0c2; }
+
+@keyframes twinkle {
+  0%, 100% { opacity: 1; }
+  50%      { opacity: 0.35; }
+}
+
+.big-light {
+  position: fixed;
+  inset: 0;
+  z-index: 10;
+  background: rgba(208, 226, 255, 0.5);
+}
+
+body.big-light-on .big-light {
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .slot,
+  .flame-wrap {
+    transition: opacity 0.2s ease;
+  }
+  .slot { transform: none; }
+  .flame,
+  .rain::before,
+  .rain::after,
+  .bulb,
+  main.shake {
+    animation: none;
+  }
+}
