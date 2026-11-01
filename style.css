@@ -64,7 +64,7 @@ h1 {
   top: 0;
   z-index: 5;
   background: #f6ecd9;
-  padding-bottom: 0.5rem;
+  padding-bottom: 0.75rem;
 }
 
 .hearth {
@@ -223,6 +223,16 @@ main.shake {
   font-size: clamp(1.9rem, 8vw, 2.75rem);
   line-height: 1.05;
   margin: 0.75rem 0 1.5rem;
+}
+
+/* Mobile: the tier is pinned with the fire, so the column's copy is hidden */
+.panel .tier {
+  display: none;
+}
+
+.tier-pinned {
+  font-size: 2rem;
+  margin: 0.35rem 0 0;
 }
 
 .chips {
@@ -438,6 +448,14 @@ body.big-light-on .big-light {
   .tier {
     font-size: 2.25rem;
     margin: 0 0 1.5rem;
+  }
+
+  .panel .tier {
+    display: block;
+  }
+
+  .tier-pinned {
+    display: none;
   }
 
   .chips {

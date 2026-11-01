@@ -92,6 +92,8 @@ const main = document.querySelector("main");
 const hearth = document.querySelector(".hearth");
 const scoreEl = document.getElementById("score");
 const tierEl = document.getElementById("tier");
+// The tier shows in the right-hand column on desktop and pinned under the fire on mobile
+const tierEls = document.querySelectorAll(".tier");
 const chipsEl = document.getElementById("chips");
 const combosEl = document.getElementById("combos");
 const coldEls = document.querySelectorAll(".cold");
@@ -190,7 +192,8 @@ function update() {
     el.style.opacity = strength.toFixed(3);
   });
 
-  tierEl.textContent = TIERS.find(([min]) => score >= min)[1];
+  const tier = TIERS.find(([min]) => score >= min)[1];
+  tierEls.forEach((el) => { el.textContent = tier; });
   currentScore = score;
   countTo(score);
 }
