@@ -21,6 +21,9 @@ const CHIPS = [
   { id: "crumpets", label: "Crumpets", points: 8 },
   { id: "leaves", label: "Leaves crunching outside", points: 4 },
   { id: "nowhere", label: "Nowhere to be tomorrow", points: 15 },
+  { id: "friends", label: "Friends round", points: 12 },
+  { id: "roast", label: "Home-cooked roast", points: 12 },
+  { id: "redWine", label: "Red wine", points: 8 },
 
   { id: "bigLight", label: "The big light is on", points: -20 },
   { id: "emails", label: "Work emails open", points: -25 },
@@ -55,6 +58,12 @@ const COMBOS = [
   { when: (on) => on.tax && on.rain, text: "The rain feels ominous now", points: -5 },
   { when: (on) => on.drilling && on.book, text: "Same paragraph six times", points: -8 },
   { when: (on) => on.dog && on.doorbell, text: "Dog has woken up. Everyone has woken up", points: -15 },
+  { when: (on) => on.friends && on.doorbell, text: "That'll be more friends", points: 15 },
+  { when: (on) => on.friends && on.nowhere, text: "Nobody's going home", points: 10 },
+  { when: (on) => on.roast && on.redWine, text: "A proper Sunday", points: 8 },
+  { when: (on) => on.friends && on.boardGame, text: "Someone's going to flip the board", points: -5 },
+  { when: (on) => on.friends && on.pyjamas, text: "Pyjamas in front of guests. Respect", points: 5 },
+  { when: (on) => on.redWine && on.emails, text: "Do not reply to that email", points: -10 },
 ];
 
 const TIERS = [
