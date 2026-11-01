@@ -9,6 +9,11 @@ body {
   overflow-x: clip;
 }
 
+/* Painted on the root too, so the cold overlay has something to blend with */
+html {
+  background: #f6ecd9;
+}
+
 body {
   position: relative;
   margin: 0;
@@ -349,6 +354,29 @@ body.rain-on .rain {
 
 body.big-light-on .big-light {
   opacity: 1;
+}
+
+/* Below zero: cold blue over everything, strength set from the score in script.js.
+   The colour blend keeps each pixel's lightness, so text stays as readable as before. */
+.cold {
+  position: fixed;
+  inset: 0;
+  z-index: 11;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.6s ease;
+}
+
+.cold-hue {
+  background: #4a7bb5;
+  mix-blend-mode: color;
+}
+
+/* A separate layer, so it blends with the page rather than with the hue layer */
+.cold-wash {
+  z-index: 12;
+  background: #b9cbe0;
+  mix-blend-mode: multiply;
 }
 
 /* ---------- Desktop: two columns, no page scroll ---------- */

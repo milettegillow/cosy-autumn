@@ -74,6 +74,9 @@ const TIERS = [
   [36, "Mildly snug"],
   [16, "Slightly damp"],
   [0, "Hostile"],
+  [-30, "Damp basement"],
+  [-70, "Dentist's waiting room"],
+  [-100, "Absolute zero"],
 ];
 
 // Page-wide effects switched on by particular chips
@@ -86,6 +89,10 @@ const scoreEl = document.getElementById("score");
 const tierEl = document.getElementById("tier");
 const chipsEl = document.getElementById("chips");
 const combosEl = document.getElementById("combos");
+const coldEls = document.querySelectorAll(".cold");
+
+// Negatives get a proper minus sign
+const formatScore = (n) => (n < 0 ? `\u2212${Math.abs(n)}` : String(n));
 
 // Hide any item slot whose image fails to load
 document.querySelectorAll(".slot img").forEach((img) => {
@@ -131,7 +138,7 @@ function countTo(target) {
     const t = Math.max(0, Math.min((now - startTime) / duration, 1));
     const eased = 1 - Math.pow(1 - t, 3);
     shownScore = Math.round(start + (target - start) * eased);
-    scoreEl.textContent = shownScore;
+    scoreEl.textContent = formatScore(shownScore);
     if (t < 1) countFrame = requestAnimationFrame(step);
   };
   countFrame = requestAnimationFrame(step);
@@ -151,7 +158,7 @@ function update() {
 
   const activeCombos = COMBOS.filter((combo) => combo.when(on));
   activeCombos.forEach((combo) => { score += combo.points; });
-  score = Math.max(0, Math.min(100, score));
+  score = Math.max(-100, Math.min(100, score));
 
   combosEl.replaceChildren(...activeCombos.map((combo) => {
     const li = document.createElement("li");
@@ -160,14 +167,23 @@ function update() {
     return li;
   }));
 
+  // Below zero the cold blue takes over from the big light's washed-out look
   Object.entries(AMBIENT).forEach(([id, cls]) => {
-    document.body.classList.toggle(cls, !!on[id]);
+    document.body.classList.toggle(cls, !!on[id] && !(id === "bigLight" && score < 0));
   });
 
   hearth.style.setProperty("--flame-scale", flameScale(score));
-  hearth.style.setProperty("--flicker", (score / 100).toFixed(2));
+  hearth.style.setProperty("--flicker", (Math.max(0, score) / 100).toFixed(2));
   hearth.classList.toggle("lit", score > 0);
   main.classList.toggle("shake", score === 100);
+
+  // Below zero a cold blue creeps in: faint at -1, deep and icy at -100
+  const cold = score < 0 ? 0.05 + 0.85 * (-score / 100) : 0;
+  coldEls.forEach((el) => {
+    // The wash darkens the page more than the text, so it is kept lighter
+    const strength = el.classList.contains("cold-wash") ? cold * 0.55 : cold;
+    el.style.opacity = strength.toFixed(3);
+  });
 
   tierEl.textContent = TIERS.find(([min]) => score >= min)[1];
   currentScore = score;
@@ -199,7 +215,7 @@ async function copyText(text) {
 }
 
 shareBtn.addEventListener("click", async () => {
-  const text = `I'm ${currentScore}% cosy - ${tierEl.textContent}. How cosy are you? ${SITE_URL}`;
+  const text = `I'm ${formatScore(currentScore)}% cosy - ${tierEl.textContent}. How cosy are you? ${SITE_URL}`;
 
   if (navigator.share) {
     try {
