@@ -165,12 +165,12 @@ h1 {
 /* the mug's base sits a little into the beam's top surface */
 .slot[data-item="mug"]    { --x: 76%; --w: 8%; bottom: 97%; }
 
-/* Hung from the beam's lower edge beside the right-hand bracket,
-   top tucked behind the beam (.beam-front sits above) */
+/* Hung from a nail on the beam's front face beside the right-hand bracket,
+   loop in front of the beam (above .beam-front) */
 .slot[data-item="socks"] {
   --x: 70.5%;
   --w: 9%;
-  z-index: 2;
+  z-index: 5;
   top: 11.8%;
 }
 
