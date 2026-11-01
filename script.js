@@ -1,14 +1,13 @@
 const CHIPS = [
-  { id: "candles", label: "Candles lit", points: 12, slot: "candle" },
-  { id: "chocolate", label: "Hot chocolate", points: 12, slot: "mug" },
-  { id: "soup", label: "Soup", points: 10, slot: "soup" },
+  { id: "candles", label: "Candles lit", points: 12 },
+  { id: "chocolate", label: "Hot chocolate", points: 12 },
+  { id: "soup", label: "Soup", points: 10 },
   { id: "bread", label: "Crusty bread", points: 5 },
-  { id: "cat", label: "Cat on lap", points: 15, slot: "cat" },
-  { id: "socks", label: "Fluffy socks", points: 10, slot: "socks" },
-  { id: "blanket", label: "Knitted blanket", points: 12, slot: "blanket" },
+  { id: "cat", label: "Cat on lap", points: 15 },
+  { id: "socks", label: "Fluffy socks", points: 10 },
+  { id: "blanket", label: "Knitted blanket", points: 12 },
   { id: "rain", label: "Rain on the window", points: 10 },
   { id: "book", label: "A good book", points: 8 },
-  { id: "fairy", label: "Fairy lights", points: 6 },
   { id: "pyjamas", label: "Pyjamas by 5pm", points: 8 },
   { id: "bath", label: "Just had a bath", points: 8 },
   { id: "oven", label: "Something in the oven", points: 10 },
@@ -78,7 +77,7 @@ const TIERS = [
 ];
 
 // Page-wide effects switched on by particular chips
-const AMBIENT = { rain: "rain-on", fairy: "fairy-on", bigLight: "big-light-on" };
+const AMBIENT = { rain: "rain-on", bigLight: "big-light-on" };
 
 const on = {};
 const main = document.querySelector("main");
@@ -88,26 +87,12 @@ const tierEl = document.getElementById("tier");
 const chipsEl = document.getElementById("chips");
 const combosEl = document.getElementById("combos");
 
-// Hide any mantel slot whose image hasn't been added yet
+// Hide any item slot whose image fails to load
 document.querySelectorAll(".slot img").forEach((img) => {
   const hide = () => { img.closest(".slot").hidden = true; };
   img.addEventListener("error", hide);
   if (img.complete && img.naturalWidth === 0) hide();
 });
-
-// Fairy lights: bulbs hung along the same curve as the SVG string
-const fairyEl = document.querySelector(".fairy-lights");
-const BULBS = 24;
-for (let i = 0; i < BULBS; i++) {
-  const t = (i + 0.5) / BULBS;
-  const bulb = document.createElement("span");
-  bulb.className = "bulb";
-  bulb.style.left = `${t * 100}%`;
-  // quadratic from (0,0) via control (50,20) to (100,0) peaks at 10 of 10 units
-  bulb.style.top = `${4 * t * (1 - t) * 100}%`;
-  bulb.style.animationDelay = `${(-Math.random() * 2.2).toFixed(2)}s`;
-  fairyEl.appendChild(bulb);
-}
 
 // Fisher-Yates shuffle, so the chips come out in a new order each visit
 function shuffled(list) {
@@ -174,12 +159,6 @@ function update() {
     li.textContent = `${combo.text}: ${sign}${Math.abs(combo.points)}`;
     return li;
   }));
-
-  CHIPS.forEach((chip) => {
-    if (!chip.slot) return;
-    const slot = document.querySelector(`.slot[data-item="${chip.slot}"]`);
-    if (slot) slot.classList.toggle("is-on", !!on[chip.id]);
-  });
 
   Object.entries(AMBIENT).forEach(([id, cls]) => {
     document.body.classList.toggle(cls, !!on[id]);

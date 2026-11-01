@@ -148,9 +148,6 @@ h1 {
   z-index: 5;
   left: var(--x);
   width: var(--w);
-  opacity: 0;
-  transform: translateY(-14px);
-  transition: opacity 0.45s ease, transform 0.45s cubic-bezier(0.3, 1.4, 0.5, 1);
 }
 
 /* On the mantel: bottoms rest on the beam's top edge */
@@ -182,11 +179,6 @@ h1 {
 
 .slot[data-item="cat"]     { --x: 12%; --w: 24%; }
 .slot[data-item="blanket"] { --x: 65%; --w: 22%; }
-
-.slot.is-on {
-  opacity: 1;
-  transform: translateY(0);
-}
 
 .slot[hidden] {
   display: none;
@@ -300,7 +292,6 @@ main.shake {
 }
 
 body.rain-on .rain,
-body.fairy-on .fairy-lights,
 body.big-light-on .big-light {
   opacity: 1;
 }
@@ -347,49 +338,6 @@ body.rain-on .rain {
 @keyframes rain-slow {
   from { transform: rotate(15deg) translateY(0); }
   to   { transform: rotate(15deg) translateY(130px); }
-}
-
-.fairy-lights {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 40px;
-  z-index: 2;
-}
-
-.fairy-string {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  overflow: visible;
-}
-
-.fairy-string path {
-  fill: none;
-  stroke: #5b4636;
-  stroke-width: 1.2;
-  vector-effect: non-scaling-stroke;
-}
-
-.bulb {
-  position: absolute;
-  width: 9px;
-  height: 9px;
-  margin: -1px 0 0 -4.5px;
-  border-radius: 50%;
-  background: #ffd27a;
-  box-shadow: 0 0 6px 2px rgba(255, 196, 92, 0.75);
-  animation: twinkle 2.2s ease-in-out infinite;
-}
-
-.bulb:nth-child(3n) { background: #ffb36b; }
-.bulb:nth-child(4n) { background: #fff0c2; }
-
-@keyframes twinkle {
-  0%, 100% { opacity: 1; }
-  50%      { opacity: 0.35; }
 }
 
 .big-light {
@@ -483,15 +431,12 @@ body.big-light-on .big-light {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .slot,
   .flame-wrap {
     transition: opacity 0.2s ease;
   }
-  .slot { transform: none; }
   .flame,
   .rain::before,
   .rain::after,
-  .bulb,
   main.shake {
     animation: none;
   }
