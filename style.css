@@ -427,13 +427,10 @@ body.big-light-on .big-light {
     margin-right: 0;
   }
 
-  /* Top of the column lines up with the top of the mantel beam;
-     --beam-top is measured in script.js */
   .panel {
     flex: 0 1 500px;
-    align-self: flex-start;
-    margin-top: var(--beam-top, 0px);
-    max-height: calc(100% - var(--beam-top, 0px));
+    align-self: center;
+    max-height: 100%;
     overflow-y: auto;
     text-align: left;
   }
