@@ -135,7 +135,54 @@ function update() {
   main.classList.toggle("shake", score === 100);
 
   tierEl.textContent = TIERS.find(([min]) => score >= min)[1];
+  currentScore = score;
   countTo(score);
 }
+
+// ---------- Sharing ----------
+
+const SITE_URL = "https://cosy-autumn.milettegillow.com";
+const shareBtn = document.getElementById("share");
+const shareLabel = shareBtn.textContent;
+let currentScore = 0;
+let copiedTimer = null;
+
+async function copyText(text) {
+  if (navigator.clipboard && window.isSecureContext) {
+    await navigator.clipboard.writeText(text);
+    return;
+  }
+  const area = document.createElement("textarea");
+  area.value = text;
+  area.setAttribute("readonly", "");
+  area.style.position = "fixed";
+  area.style.opacity = "0";
+  document.body.appendChild(area);
+  area.select();
+  document.execCommand("copy");
+  area.remove();
+}
+
+shareBtn.addEventListener("click", async () => {
+  const text = `I'm ${currentScore}% cosy - ${tierEl.textContent}. How cosy are you? ${SITE_URL}`;
+
+  if (navigator.share) {
+    try {
+      await navigator.share({ text });
+      return;
+    } catch (err) {
+      if (err.name === "AbortError") return;
+    }
+  }
+
+  try {
+    await copyText(text);
+    shareBtn.textContent = "Copied";
+    clearTimeout(copiedTimer);
+    copiedTimer = setTimeout(() => { shareBtn.textContent = shareLabel; }, 2000);
+  } catch {
+    // Nothing more we can do without clipboard access
+  }
+});
 
 update();
