@@ -157,14 +157,12 @@ h1 {
 
 /* On the mantel: bottoms rest on the beam's top edge */
 .slot[data-item="candle"],
-.slot[data-item="mug"],
-.slot[data-item="soup"] {
+.slot[data-item="mug"] {
   bottom: 98.5%;
 }
 
-.slot[data-item="candle"] { --x: 3%;    --w: 4%; }
-.slot[data-item="mug"]    { --x: 22.5%; --w: 5%; }
-.slot[data-item="soup"]   { --x: 71.5%; --w: 7%; }
+.slot[data-item="candle"] { --x: 3%;  --w: 4%; }
+.slot[data-item="mug"]    { --x: 71%; --w: 8%; }
 
 /* Hung from the beam's lower edge beside the right-hand bracket,
    top tucked behind the beam (.beam-front sits above) */
