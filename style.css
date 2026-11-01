@@ -41,6 +41,17 @@ h1 {
   margin: 0 0 0.5rem;
 }
 
+/* Hot chocolate after the question mark, like an emoji. Sized in em so it
+   scales with the heading; the cup (below the steam) is about cap height.
+   Base on the baseline; the negative top margin stops the steam from
+   making the line taller. */
+.title-mug {
+  height: 1.633em;
+  width: auto;
+  margin: -0.65em 0 0 0.25em;
+  vertical-align: baseline;
+}
+
 /* ---------- Fireplace ---------- */
 
 /* Mobile: the fire sticks to the top while the chips scroll beneath it */
@@ -156,14 +167,11 @@ h1 {
 }
 
 /* On the mantel: bottoms rest on the beam's top edge */
-.slot[data-item="candle"],
-.slot[data-item="mug"] {
+.slot[data-item="candle"] {
   bottom: 98.5%;
 }
 
 .slot[data-item="candle"] { --x: 12.4%; --w: 5.2%; }
-/* the mug's base sits a little into the beam's top surface */
-.slot[data-item="mug"]    { --x: 76%; --w: 8%; bottom: 97%; }
 
 /* Hung from a nail on the beam's front face beside the right-hand bracket,
    loop in front of the beam (above .beam-front) */
