@@ -23,6 +23,7 @@ const CHIPS = [
   { id: "friends", label: "Friends round", points: 12 },
   { id: "roast", label: "Home-cooked roast", points: 12 },
   { id: "redWine", label: "Red wine", points: 8 },
+  { id: "fire", label: "Roaring fire", points: 15 },
 
   { id: "bigLight", label: "The big light is on", points: -20 },
   { id: "emails", label: "Work emails open", points: -25 },
@@ -65,6 +66,10 @@ const COMBOS = [
   { when: (on) => on.friends && on.pyjamas, text: "Pyjamas in front of guests. Respect", points: 5 },
   { when: (on) => on.redWine && on.emails, text: "Do not reply to that email", points: -10 },
   { when: (on) => on.friends && on.laptop, text: "Your friends are being very polite about this", points: -10 },
+  { when: (on) => on.fire && on.wetSocks, text: "Socks steaming by the fire", points: 10 },
+  { when: (on) => on.fire && on.radiator, text: "Who needs radiators", points: 10 },
+  { when: (on) => on.fire && on.cat, text: "Cat is now slightly too warm", points: 5 },
+  { when: (on) => on.fire && on.crumpets, text: "Toasting crumpets on the fire", points: 8 },
 ];
 
 const TIERS = [
