@@ -74,7 +74,7 @@ const TIERS = [
   [36, "Mildly snug"],
   [16, "Slightly damp"],
   [0, "Hostile"],
-  [-30, "Damp basement"],
+  [-30, "Wet sock in a puddle"],
   [-70, "Dentist's waiting room"],
   [-100, "Absolute zero"],
 ];
