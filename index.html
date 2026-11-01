@@ -35,32 +35,38 @@
   <main>
     <h1>How cosy are you?</h1>
 
-    <div class="hearth">
-      <img class="fireplace" src="assets/fireplace.png" alt="A watercolour stone fireplace with logs in the grate">
+    <div class="layout">
+      <div class="stage">
+        <div class="hearth">
+          <img class="fireplace" src="assets/fireplace.png" alt="A watercolour stone fireplace with logs in the grate">
 
-      <div class="flame-wrap" aria-hidden="true">
-        <img class="flame" src="assets/flame.png" alt="">
+          <div class="flame-wrap" aria-hidden="true">
+            <img class="flame" src="assets/flame.png" alt="">
+          </div>
+
+          <div class="mantel" aria-hidden="true">
+            <div class="slot" data-item="candle"><img src="assets/candle.png" alt=""></div>
+            <div class="slot" data-item="mug"><img src="assets/mug.png" alt=""></div>
+            <div class="slot" data-item="soup"><img src="assets/soup.png" alt=""></div>
+            <div class="slot" data-item="cat"><img src="assets/cat.png" alt=""></div>
+            <div class="slot" data-item="socks"><img src="assets/socks.png" alt=""></div>
+            <div class="slot" data-item="blanket"><img src="assets/blanket.png" alt=""></div>
+          </div>
+
+          <p class="score" id="score" aria-live="polite">0</p>
+        </div>
       </div>
 
-      <div class="mantel" aria-hidden="true">
-        <div class="slot" data-item="candle"><img src="assets/candle.png" alt=""></div>
-        <div class="slot" data-item="mug"><img src="assets/mug.png" alt=""></div>
-        <div class="slot" data-item="soup"><img src="assets/soup.png" alt=""></div>
-        <div class="slot" data-item="cat"><img src="assets/cat.png" alt=""></div>
-        <div class="slot" data-item="socks"><img src="assets/socks.png" alt=""></div>
-        <div class="slot" data-item="blanket"><img src="assets/blanket.png" alt=""></div>
-      </div>
+      <div class="panel">
+        <p class="tier" id="tier">Hostile</p>
 
-      <p class="score" id="score" aria-live="polite">0</p>
+        <div class="chips" id="chips"></div>
+
+        <ul class="combos" id="combos"></ul>
+
+        <button type="button" class="share" id="share">Share my cosiness</button>
+      </div>
     </div>
-
-    <p class="tier" id="tier">Hostile</p>
-
-    <div class="chips" id="chips"></div>
-
-    <ul class="combos" id="combos"></ul>
-
-    <button type="button" class="share" id="share">Share my cosiness</button>
   </main>
 
   <div class="ambient big-light" aria-hidden="true"></div>
