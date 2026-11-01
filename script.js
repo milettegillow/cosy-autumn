@@ -101,6 +101,14 @@ document.querySelectorAll(".slot img").forEach((img) => {
   if (img.complete && img.naturalWidth === 0) hide();
 });
 
+// Line the top of the right-hand column up with the top of the mantel beam
+const layoutEl = document.querySelector(".layout");
+function alignPanel() {
+  const offset = hearth.getBoundingClientRect().top - layoutEl.getBoundingClientRect().top;
+  layoutEl.style.setProperty("--beam-top", `${Math.max(0, offset)}px`);
+}
+new ResizeObserver(alignPanel).observe(layoutEl);
+
 // Fisher-Yates shuffle, so the chips come out in a new order each visit
 function shuffled(list) {
   const out = [...list];

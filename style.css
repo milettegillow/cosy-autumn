@@ -36,7 +36,7 @@ main {
 h1 {
   font-family: "Playfair Display", Georgia, serif;
   font-weight: 700;
-  font-size: 1.8rem;
+  font-size: 2.16rem;
   line-height: 1.15;
   margin: 0 0 0.5rem;
 }
@@ -213,8 +213,8 @@ main.shake {
   font-family: "Playfair Display", Georgia, serif;
   font-weight: 700;
   font-size: clamp(1.9rem, 8vw, 2.75rem);
-  line-height: 1.15;
-  margin: 0.75rem 0 1.25rem;
+  line-height: 1.05;
+  margin: 0.75rem 0 1.5rem;
 }
 
 .chips {
@@ -391,7 +391,7 @@ body.big-light-on .big-light {
   }
 
   h1 {
-    font-size: 2.5rem;
+    font-size: 3rem;
     margin: 0 0 0.25rem;
   }
 
@@ -419,16 +419,20 @@ body.big-light-on .big-light {
     margin-right: 0;
   }
 
+  /* Top of the column lines up with the top of the mantel beam;
+     --beam-top is measured in script.js */
   .panel {
     flex: 0 1 500px;
-    max-height: 100%;
+    align-self: flex-start;
+    margin-top: var(--beam-top, 0px);
+    max-height: calc(100% - var(--beam-top, 0px));
     overflow-y: auto;
     text-align: left;
   }
 
   .tier {
     font-size: 2.25rem;
-    margin: 0 0 0.6rem;
+    margin: 0 0 1.5rem;
   }
 
   .chips {
