@@ -46,9 +46,9 @@ h1 {
    Base on the baseline; the negative top margin stops the steam from
    making the line taller. */
 .title-mug {
-  height: 1.633em;
+  height: 1.306em;
   width: auto;
-  margin: -0.65em 0 0 0.25em;
+  margin: -0.52em 0 0 0.25em;
   vertical-align: baseline;
 }
 
