@@ -161,14 +161,14 @@ h1 {
   bottom: 98.5%;
 }
 
-.slot[data-item="candle"] { --x: 3%;  --w: 4%; }
-.slot[data-item="mug"]    { --x: 71%; --w: 8%; }
+.slot[data-item="candle"] { --x: 11%; --w: 8%; }
+.slot[data-item="mug"]    { --x: 76%; --w: 8%; }
 
 /* Hung from the beam's lower edge beside the right-hand bracket,
    top tucked behind the beam (.beam-front sits above) */
 .slot[data-item="socks"] {
-  --x: 73%;
-  --w: 6%;
+  --x: 70.5%;
+  --w: 9%;
   z-index: 2;
   top: 11.8%;
 }
@@ -180,7 +180,7 @@ h1 {
   bottom: 11.5%;
 }
 
-.slot[data-item="cat"]     { --x: 12%; --w: 24%; }
+.slot[data-item="cat"]     { --x: 13.2%; --w: 21.6%; }
 .slot[data-item="blanket"] { --x: 65%; --w: 22%; }
 
 .slot[hidden] {
