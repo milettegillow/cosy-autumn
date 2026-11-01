@@ -58,11 +58,11 @@ const COMBOS = [
 ];
 
 const TIERS = [
-  [100, "Legally a bear"],
-  [76, "Hygge overlord"],
+  [100, "Hygge overlord"],
+  [76, "Absolutely toasted"],
   [56, "Hobbit-adjacent"],
   [36, "Mildly snug"],
-  [16, "Damp flat"],
+  [16, "Slightly damp"],
   [0, "Hostile"],
 ];
 
