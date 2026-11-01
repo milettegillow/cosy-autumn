@@ -179,9 +179,10 @@ main.shake {
 
 @keyframes shake {
   0%, 100% { transform: translate(0, 0); }
-  25%      { transform: translate(-1.5px, 1px); }
-  50%      { transform: translate(1px, -1px); }
-  75%      { transform: translate(1.5px, 0.5px); }
+  /* upward only, so the shake never adds a vertical scrollbar */
+  25%      { transform: translate(-1.5px, -1px); }
+  50%      { transform: translate(1px, -2px); }
+  75%      { transform: translate(1.5px, -0.5px); }
 }
 
 /* ---------- Tier, chips, combos ---------- */
@@ -399,7 +400,7 @@ body.big-light-on .big-light {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 3rem;
+    gap: 2.5rem;
   }
 
   .stage {
@@ -418,31 +419,40 @@ body.big-light-on .big-light {
   }
 
   .panel {
-    flex: 0 1 460px;
+    flex: 0 1 500px;
     max-height: 100%;
     overflow-y: auto;
     text-align: left;
   }
 
   .tier {
-    margin: 0 0 1rem;
+    font-size: 2.25rem;
+    margin: 0 0 0.6rem;
   }
 
   .chips {
     justify-content: flex-start;
-    gap: 0.4rem;
+    gap: 0.3rem;
   }
 
   .chip {
-    padding: 0.35rem 0.8rem;
+    font-size: 14px;
+    line-height: 1.35;
+    padding: 0.15rem 0.6rem;
   }
 
   .combos {
-    margin-top: 1rem;
+    margin-top: 0.7rem;
+    line-height: 1.4;
+  }
+
+  .combos li {
+    margin: 0;
   }
 
   .share {
-    margin-top: 1.25rem;
+    margin-top: 0.9rem;
+    padding: 0.45rem 1.2rem;
   }
 }
 
